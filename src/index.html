@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Your own AFL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<meta name="keywords" content="Bootstrap Responsive Templates, Iphone Compatible Templates, Smartphone Compatible Templates, Ipad Compatible Templates, Flat Responsive Templates"/>
+<link href="assets/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="assets/css/style.css" rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<script src="assets/js/jquery-1.11.0.min.js"></script>
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="assets/js/move-top.js"></script>
+<script type="text/javascript" src="assets/js/easing.js"></script>
+<script type="text/javascript">
+	// global variables
+	var _teams = [];
+	var _lastMatches = {};
+	var _favourite = '';
+	var _host = 'https://api.squiggle.com.au';
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+		// Load teams
+		jQuery.support.cors = true;
+		$.ajax({
+		  url: _host + '/?q=teams',
+		  dataType: 'json',
+		  type: 'GET'
+		}).done(function(data) {
+		  // do something with the response, e.g. isolate the id of a linked resource
+		  console.log(data);
+		  //alert(data.teams[0].name);
+		  _teams = data.teams;
+		  for(let i=0;i<data.teams.length;i++){
+			  $('select.f').append('<option value="'+data.teams[i].id+'">'+data.teams[i].name+'</option>');
+		  }
+			if(document.cookie.indexOf('fav=') != -1){
+				_favourite = document.cookie.replace('fav=', '');
+				$('.f').val(_favourite);
+			}
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	});
+	function getFootballData(id, ajaxURL, callback){
+		if(id && $('#ctt'+id))
+			$('#ctt'+id).html('<img src="assets/loading.gif" id="loading">');
+		$.ajax({
+		  //headers: { 'X-Auth-Token': 'f3a40c30d2314ff7a52b3c6d5b1aaaca' },
+		  url: ajaxURL,
+		  dataType: 'json',
+		  type: 'GET'
+		}).done(function(data) {
+		  // do something with the response, e.g. isolate the id of a linked resource
+		  console.log(data);
+		  callback(id, data);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function setFav(o){
+		_favourite = o.value;
+		document.cookie = 'fav='+_favourite;
+		$('.f').val(_favourite);
+	}
+</script>
+<!---- start-smoth-scrolling---->
+</head>
+<body>
+	<div class="head" id="home">
+		<div class="container">
+			<div class="logo">
+				<a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+			</div>
+			<div class="header">
+				<div class="menu" style="display:none;">
+                    <a class="toggleMenu" href="#"><img src="assets/images/menu-icon.png" alt="" /> </a>
+					<ul class="nav" id="nav">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="gallery.html">Gallery</a></li>
+						<li><a href="blogs.html">Blogs</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+                    <!----start-top-nav-script---->
+		            <script type="text/javascript" src="assets/js/responsive-nav.js"></script>
+					<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){
+							event.preventDefault();
+							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+						});
+					});
+					</script>
+		<!----//End-top-nav-script---->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div  id="top" class="callbacks_container">
+		<ul class="rslides" id="slider4">
+			<li>
+				<div class="banner">
+					<div class="container">
+						<div class="banner-text">
+							<h1>LIKE ONE TEAM SO MUCH..??</h1>
+							<P>SET YOUR FAVOURITE TEAM</P>
+							<span>
+							<select class="f" onchange="setFav(this)"></select>
+							<input type="submit" value="Fav">
+							</span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="banner1">
+					<div class="container">
+						<div class="banner-text">
+							<h1>LIKE ONE TEAM SO MUCH..??</h1>
+							<P>SET YOUR FAVOURITE TEAM</P>
+							<span>
+							<select class="f" onchange="setFav(this)"></select>
+							<input type="submit" value="Fav">
+							</span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="banner2">
+					<div class="container">
+						<div class="banner-text">
+							<h1>LIKE ONE TEAM SO MUCH..??</h1>
+							<P>SET YOUR FAVOURITE TEAM</P>
+							<span>
+							<select class="f" onchange="setFav(this)"></select>
+							<input type="submit" value="Fav">
+							</span>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+		<div class="clearfix"></div>
+	<!--- banner Slider starts Here --->
+	  			<script src="assets/js/responsiveslides.min.js"></script>
+			 <script>
+			    // You can also use "$(window).load(function() {"
+			    $(function () {
+			      // Slideshow 4
+			      $("#slider4").responsiveSlides({
+			        auto: true,
+			        pager: true,
+			        nav: true,
+			        speed: 500,
+			        namespace: "callbacks",
+			        before: function () {
+			          $('.events').append("<li>before event fired.</li>");
+			        },
+			        after: function () {
+			          $('.events').append("<li>after event fired.</li>");
+			        }
+			      });
+
+			    });
+			  </script>
+			<!--End-slider-script-->
+	<!--start-website-->
+	<!--Responsive-tabs-Starts-Here-->
+	<div class="website">
+		<div class="container">
+			<div class="website-top">
+				<h3>DO YOUR SEARCH</h3>
+			</div>
+			<div class="sap_tabs">
+				     <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+						  <ul class="resp-tabs-list">
+							  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Prediction</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Won Games</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>Next 5 Games</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-3" role="tab"><span>Season Results</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-4" role="tab"><span>Head-to-head</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-5" role="tab"><span onclick="do_getStandings()">Standings</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-6" role="tab"><span onclick="do_getListAllTeams()">All Teams</span></li>
+							  <li class="resp-tab-item" aria-controls="tab_item-7" role="tab"><span onclick="do_getListModels()">Computer Models</span></li>
+							  <div class="clear"></div>
+						  </ul>
+							<div class="resp-tabs-container">
+							    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+								<div class="facts" id="ctt0">
+									<img src="assets/images/abt-1.png">
+									<div style="margin-top:10px;">
+										Select Team: 
+										<select id="teamid" class="f tid"></select>
+										<button onclick="do_prediction()">Show Prediction</button>
+										<div id="result" style="padding:20px;"></div>
+									</div>
+							        </div>
+							     </div>
+							      <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+									<div class="facts" id="ctt1">
+										<img src="assets/images/abt-img.png">
+										<div style="margin-top:10px;">
+											Select Team: 
+											<select id="teamid" class="f tid"></select>
+											<button onclick="do_getWonSoFar()">Get won games so far</button>
+											<div id="result2" style="padding:20px;"></div>
+										</div>
+							        </div>
+							     </div>
+							      <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
+									<div class="facts" id="ctt2">
+										<img src="assets/images/abt-2.png">
+										<div style="margin-top:10px;">
+											Select Team: 
+											<select id="teamid5" class="f tid"></select>
+											<button onclick="do_getNext5()">Get next 5 opponent</button>
+											<div id="result3" style="padding:20px;"></div>
+										</div>
+							        </div>
+							     </div>
+							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-3">
+									<div class="facts" id="ctt3">
+										<img src="assets/images/abt-3.png">
+										<div style="margin-top:10px;">
+											Select Team: 
+											<select id="teamids" class="f tid"></select>
+											<button onclick="do_getSeasonResult()">Get season results</button>
+											<div id="result4" style="padding:20px;"></div>
+										</div>
+							      </div>
+							     </div>
+							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-4">
+									<div class="facts" id="ctt4">
+										<img src="assets/images/abt-4.png">
+										<div style="margin-top:10px;">
+											My Team: 
+											<select id="teamidm" class="f tid"></select>
+											<br>
+											Rival: 
+											<select id="teamidr" class="f tid"></select>
+											<br>
+											<button onclick="do_getH2H()">Get head-to-head results</button>
+											<div id="result5" style="padding:20px;"></div>
+										</div>
+							      </div>
+							     </div>
+							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-5">
+									<div class="facts" id="ctt5">
+									<img src="assets/images/abt-5.png">
+									  <img src="assets/loading.gif" id="loading">
+							      </div>
+							     </div>
+							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-6">
+									<div class="facts" id="ctt6">
+									<img src="assets/images/abt-6.png">
+									  <img src="assets/loading.gif" id="loading">
+							      </div>
+							     </div>
+							     <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-7">
+									<div class="facts" id="ctt7">
+									<img src="assets/images/abt-7.png">
+									  <img src="assets/loading.gif" id="loading">
+							      </div>
+							     </div>
+							 </div>
+					      </div>
+					 </div>
+					 </div>
+					</div>
+					 <script src="assets/js/easyResponsiveTabs.js" type="text/javascript"></script>
+					    <script type="text/javascript">
+						    $(document).ready(function () {
+						        $('#horizontalTab').easyResponsiveTabs({
+						            type: 'default', //Types: default, vertical, accordion
+						            width: 'auto', //auto or any width like 600px
+						            fit: true   // 100% fit in a container
+						        });
+						    });
+						   </script>
+					<!-- Partners Starts Here --->
+		<!--Responsive-tabs-ends-Here-->
+	<!--end-website-->
+	<!--start-footer-->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-main">
+				<h3>Contact Me</h3>
+				<div class="footer-bottom">
+					<div class="col-md-4 footer-bottom-left">
+						<img src="assets/images/msg.png" alt="">
+					</div>
+					<div class="col-md-8 footer-bottom-right">
+						<small>Enter Your Email here</small>
+						<div class="contact-text">
+							<input type="text" placeholder="Email" />
+							<input type="submit" value="SUBMIT" onclick="mailto:webmaster@web.com" >
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="ftr">
+						<p>&copy;2020 <a href="mailto:19560658@students.latrobe.edu.au" target="_blank" style="color:yellow;">Technical Support@Rex</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+	</div>
+	<!--end-footer-->
+<script type="text/javascript">
+	function do_prediction(){
+		let tid = parseInt($('#teamid').val());
+		$('#result').html('<img src="assets/loading2.gif" />');
+		$.ajax({
+			url: _host+'/?q=tips;year=2019;round=20',
+			dataType: 'json',
+			type: 'GET'
+		}).done(function(data){
+			console.log(data.tips);
+			let tbl = '<table>';
+			tbl += '<tr><th>Update Date</th><th>Source</th><th>Venue</th><th>Confidence</th></tr>';
+			for(let i=0;i<data.tips.length;i++){
+				if(data.tips[i].tipteamid == tid){
+					tbl += '<tr><td>'+data.tips[i].updated+'</td><td>'+data.tips[i].source+'</td><td>'+data.tips[i].venue+'</td><td>'+data.tips[i].confidence+'</td></tr>';
+				}
+			}
+			tbl += '</table>';
+			$('#result').html(tbl);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function do_getWonSoFar(){
+		let tid = parseInt($('#teamid').val());
+		$('#result2').html('<img src="assets/loading2.gif" />');
+		$.ajax({
+			url: _host+'/?q=games;year=2019;complete=100',
+			dataType: 'json',
+			type: 'GET'
+		}).done(function(data){
+			console.log(data.games);
+			//{"abehinds":7,"ateam":"Collingwood","hteam":"Geelong","ascore":61,"complete":100,"is_final":3,"winnerteamid":4,"id":3388,"ateamid":4,"winner":"Collingwood","tz":"+10:00","date":"2019-09-06 19:50:00","hscore":51,"hbehinds":9,"year":2019,"is_grand_final":0,"updated":"2019-09-06 22:24:02","hgoals":7,"hteamid":7,"round":24,"agoals":9,"roundname":"Qualifying Final","venue":"M.C.G."}
+			let tbl = '<table>';
+			tbl += '<tr><th>Date</th><th>Venue</th></th><th>Home Team</th><th>Away Team</th><th>Round</th><th>Result</th></tr>';
+			for(let i=0;i<data.games.length;i++){
+				let g = data.games[i];
+				if(g.round < 20 && g.winnerteamid == tid){
+					tbl += '<tr><td>'+g.date+'</td><td>'+g.venue+'</td><td>'+g.hteam+'</td><td>'+g.ateam+'</td><td>'+g.round+'</td><td>'+g.hscore+':'+g.ascore+'</td></tr>';
+				}
+			}
+			tbl += '</table>';
+			$('#result2').html(tbl);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function do_getNext5(){
+		let tid = parseInt($('#teamid').val());
+		$('#result3').html('<img src="assets/loading2.gif" />');
+		$.ajax({
+			url: _host+'/?q=games;year=2019;complete=100',
+			dataType: 'json',
+			type: 'GET'
+		}).done(function(data){
+			console.log(data.games);
+			//{"abehinds":7,"ateam":"Collingwood","hteam":"Geelong","ascore":61,"complete":100,"is_final":3,"winnerteamid":4,"id":3388,"ateamid":4,"winner":"Collingwood","tz":"+10:00","date":"2019-09-06 19:50:00","hscore":51,"hbehinds":9,"year":2019,"is_grand_final":0,"updated":"2019-09-06 22:24:02","hgoals":7,"hteamid":7,"round":24,"agoals":9,"roundname":"Qualifying Final","venue":"M.C.G."}
+			let tbl = '<table>';
+			tbl += '<tr><th>Date</th><th>Home Team</th><th>Away Team</th><th>Round</th><!--th>Result</th--></tr>';
+			for(let i=0;i<data.games.length;i++){
+				let g = data.games[i];
+				if(g.round >= 20 && g.round < 25 && (g.ateamid == tid || g.hteamid == tid)){
+					tbl += '<tr><td>'+g.date+'</td><td>'+g.hteam+'</td><td>'+g.ateam+'</td><td>'+g.round+'</td><!--td>'+g.hscore+':'+g.ascore+'</td--></tr>';
+				}
+			}
+			tbl += '</table>';
+			$('#result3').html(tbl);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function do_getSeasonResult(){
+		let tid = parseInt($('#teamid').val());
+		$('#result4').html('<img src="assets/loading2.gif" />');
+		$.ajax({
+			url: _host+'/?q=games;year=2019;complete=100',
+			dataType: 'json',
+			type: 'GET'
+		}).done(function(data){
+			console.log(data.games);
+			//{"abehinds":7,"ateam":"Collingwood","hteam":"Geelong","ascore":61,"complete":100,"is_final":3,"winnerteamid":4,"id":3388,"ateamid":4,"winner":"Collingwood","tz":"+10:00","date":"2019-09-06 19:50:00","hscore":51,"hbehinds":9,"year":2019,"is_grand_final":0,"updated":"2019-09-06 22:24:02","hgoals":7,"hteamid":7,"round":24,"agoals":9,"roundname":"Qualifying Final","venue":"M.C.G."}
+			let tbl = '<table>';
+			tbl += '<tr><th>Date</th><th>Home Team</th><th>Away Team</th><th>Round</th><th>Result</th></tr>';
+			for(let i=0;i<data.games.length;i++){
+				let g = data.games[i];
+				if(g.round < 20 && (g.ateamid == tid || g.hteamid == tid)){
+					tbl += '<tr><td>'+g.date+'</td><td>'+g.hteam+'</td><td>'+g.ateam+'</td><td>'+g.round+'</td><td>'+g.hscore+':'+g.ascore+'</td></tr>';
+				}
+			}
+			tbl += '</table>';
+			$('#result4').html(tbl);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function do_getH2H(){
+		let tid = parseInt($('#teamidm').val());
+		let tid2 = parseInt($('#teamidr').val());
+		$('#result5').html('<img src="assets/loading2.gif" />');
+		$.ajax({
+			url: _host+'/?q=games;year=2019;complete=100',
+			dataType: 'json',
+			type: 'GET'
+		}).done(function(data){
+			console.log(data.games);
+			//{"abehinds":7,"ateam":"Collingwood","hteam":"Geelong","ascore":61,"complete":100,"is_final":3,"winnerteamid":4,"id":3388,"ateamid":4,"winner":"Collingwood","tz":"+10:00","date":"2019-09-06 19:50:00","hscore":51,"hbehinds":9,"year":2019,"is_grand_final":0,"updated":"2019-09-06 22:24:02","hgoals":7,"hteamid":7,"round":24,"agoals":9,"roundname":"Qualifying Final","venue":"M.C.G."}
+			let tbl = '<table>';
+			tbl += '<tr><th>Date</th><th>Home Team</th><th>Away Team</th><th>Round</th><th>Result</th></tr>';
+			for(let i=0;i<data.games.length;i++){
+				let g = data.games[i];
+				if(g.round < 20 && (g.ateamid == tid && g.hteamid==tid2 || g.hteamid == tid && g.ateamid==tid2)){
+					tbl += '<tr><td>'+g.date+'</td><td>'+g.hteam+'</td><td>'+g.ateam+'</td><td>'+g.round+'</td><td>'+g.hscore+':'+g.ascore+'</td></tr>';
+				}
+			}
+			tbl += '</table>';
+			$('#result5').html(tbl);
+		}).fail(function(data,status,xhr){
+			console.log(status);
+			alert('Loading fail, please try to reload webpage');
+		});
+	}
+	function do_getStandings(){
+		getFootballData(5, _host+'/?q=standings;year=2019;round=19', function(id, data){
+			let tbl = '<table>';
+			tbl += '<tr><th>Rank</th><th>Name</th><th>Played</th><th>Wins</th><th>Losses</th></tr>';
+			for(let i=0;i<data.standings.length;i++){
+				let g = data.standings[i];
+				tbl += '<tr><td>'+g.rank+'</td><td>'+g.name+'</td><td>'+g.played+'</td><td>'+g.wins+'</td><td>'+g.losses+'</td></tr>';
+			}
+			tbl += '</table>';
+			$('#ctt'+id).html(tbl);
+		});
+	}
+	function do_getListAllTeams(){
+		let tbl = '<table>';
+		tbl += '<tr><th>Name</th><th>Abbrev</th><th>Logo</th></tr>';
+		for(let i=0;i<_teams.length;i++){
+			tbl += '<tr><td>'+_teams[i].name+'</td><td>'+_teams[i].abbrev+'</td><td><img style="height:30px" src="http://www.squiggle.com.au'+_teams[i].logo+'" /></td></tr>';
+		}
+		tbl += '</table>';
+		$('#ctt'+6).html(tbl);
+	}
+	function do_getListModels(){
+		getFootballData(7, _host+'/?q=sources', function(id, data){
+			let tbl = '<table>';
+			tbl += '<tr><th>Logo</th><th>Name</th><th>URL</th></tr>';
+			for(let i=0;i<data.sources.length;i++){
+				let g = data.sources[i];
+				if(g.url.indexOf('://') != -1)
+				tbl += '<tr><td><img style="height:30px" src="http://www.squiggle.com.au'+g.icon+'" /></td><td>'+g.name+'</td><td><a href="'+g.url+'" target="blank">'+g.url+'</a></td></tr>';
+			}
+			tbl += '</table>';
+			$('#ctt'+id).html(tbl);
+		});
+	}
+</script>
+<app-root></app-root>
+</body>
+</html>
